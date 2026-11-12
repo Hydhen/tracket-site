@@ -15,6 +15,9 @@ Tracket application is fully open source, so the page lives here, and the applic
 
 Open `public/index.html` in a browser. Pushing to `main` publishes the `public/` folder with the **Pages** workflow.
 
+The screenshots in [`public/img/`](public/img) show the real app with made-up tickets and people (no real Jira data), one
+per view and theme. The page picks the theme from the visitor's settings.
+
 The page respects the reduced-motion setting: without motion, it is a static page.
 
 ## License

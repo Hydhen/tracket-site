@@ -26,6 +26,7 @@
     <link rel="preload" href="fonts/martian-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="style.css" />
     <script src="main.js"></script>
+    <script src="app.js" defer></script>
     <script src="vendor/gsap.min.js" defer></script>
     <script src="vendor/ScrollTrigger.min.js" defer></script>
     <script src="motion.js" defer></script>
@@ -63,31 +64,76 @@
         </div>
         <p class="small" data-intro>Free, MIT-licensed. Windows 10 and 11.</p>
 
-        <div
-          class="stage"
-          data-intro
-          role="img"
-          aria-label="Example: the ticket ABC-123 moves from To do to In progress, its timer starts running, and a git worktree named after the ticket is created."
-        >
-          <div class="stage__top" aria-hidden="true">
-            <div class="stage__key">ABC-123</div>
-            <div class="stage__side">
+        <div class="app" data-intro>
+          <div class="app__switch" role="tablist" aria-label="Ticket views" hidden>
+            <button type="button" role="tab" id="tab-open" aria-controls="panel-open" aria-selected="true">Open</button>
+            <button type="button" role="tab" id="tab-closed" aria-controls="panel-closed" aria-selected="false" tabindex="-1">Closed</button>
+            <button type="button" role="tab" id="tab-tree" aria-controls="panel-tree" aria-selected="false" tabindex="-1">Tree</button>
+          </div>
+          <p class="app__caption" id="app-caption" aria-live="polite">What's assigned to you, grouped by status. Pick one to see it next to the list.</p>
+          <div class="app__window">
+            <div class="app__bar" aria-hidden="true">
+              <img src="favicon.svg?v=2" alt="" width="16" height="16" />
+              Tracket
+            </div>
+            <div class="app__panel" role="tabpanel" id="panel-open" aria-labelledby="tab-open">
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="img/app-open-dark.webp" />
+                <img src="img/app-open-light.webp" width="2200" height="1440" alt="The Open view of Tracket: tickets assigned to you grouped by status, with ticket ABC-123 open on the right and its timer running." decoding="async" />
+              </picture>
+            </div>
+            <div class="app__panel" role="tabpanel" id="panel-closed" aria-labelledby="tab-closed" hidden>
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="img/app-closed-dark.webp" />
+                <img src="img/app-closed-light.webp" width="2200" height="1440" alt="The Closed view of Tracket: tickets that are resolved or closed, most recent first, with ticket ABC-111 open on the right." loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <div class="app__panel" role="tabpanel" id="panel-tree" aria-labelledby="tab-tree" hidden>
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="img/app-tree-dark.webp" />
+                <img src="img/app-tree-light.webp" width="2200" height="1440" alt="The Tree view of Tracket: two epics with their stories and sub-tasks, a progress bar on each epic, and ticket ABC-104 open on the right." loading="lazy" decoding="async" />
+              </picture>
+            </div>
+          </div>
+          <p class="app__note small">Screenshots of Tracket with made-up tickets.</p>
+        </div>
+
+      </section>
+
+      <section class="section section--time" id="time">
+        <div class="wrap">
+          <p class="facts reveal">Time tracker</p>
+          <h2 class="reveal">A timer on every ticket.</h2>
+          <p class="intro reveal">
+            Start it when you pick a ticket up. It keeps running while the app is closed, and when you are done the time
+            goes to Jira as a worklog.
+          </p>
+
+          <div
+            class="stage reveal"
+            role="img"
+            aria-label="Example: when the ticket ABC-123 moves from To do to In progress, its timer starts running; a git worktree named after the ticket is created; when the work is done, the time is logged to the ticket."
+          >
+            <div class="stage__top" aria-hidden="true">
               <div class="clock is-running"><span class="clock__dot"></span><span class="clock__time" data-clock>00:47:12</span></div>
               <p class="stage__toast">Logged 47 min to ABC-123</p>
             </div>
+            <div class="stage__ticket" aria-hidden="true">
+              <div class="stage__key">ABC-123</div>
+              <p class="stage__title">Export fails when the file name has an accent</p>
+            </div>
+            <div class="rail" aria-hidden="true">
+              <div class="rail__thumb" data-stage="doing"></div>
+              <span class="rail__stop">To do</span>
+              <span class="rail__stop is-active">In progress</span>
+              <span class="rail__stop">Done</span>
+            </div>
+            <p class="stage__shell" aria-hidden="true">
+              <span class="stage__prompt">$</span>
+              <span class="stage__cmd">git worktree add .claude/worktrees/ABC-123</span>
+              <span class="stage__opens">→ opens in VS Code</span>
+            </p>
           </div>
-          <p class="stage__title" aria-hidden="true">Export fails when the file name has an accent</p>
-          <div class="rail" aria-hidden="true">
-            <div class="rail__thumb" data-stage="doing"></div>
-            <span class="rail__stop">To do</span>
-            <span class="rail__stop is-active">In progress</span>
-            <span class="rail__stop">Done</span>
-          </div>
-          <p class="stage__shell" aria-hidden="true">
-            <span class="stage__prompt">$</span>
-            <span class="stage__cmd">git worktree add .claude/worktrees/ABC-123</span>
-            <span class="stage__opens">→ opens in VS Code</span>
-          </p>
         </div>
       </section>
 

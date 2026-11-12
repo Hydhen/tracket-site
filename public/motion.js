@@ -154,7 +154,7 @@
     .to(lines, { yPercent: 0, duration: 1, stagger: 0.12 }, 0.1)
     .to('.lead', { opacity: 1, y: 0, duration: 0.8 }, 0.55)
     .to('.hero .buttons, .hero .small', { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.75)
-    .to('.stage', { opacity: 1, y: 0, duration: 0.9 }, 0.9)
+    .to('.app', { opacity: 1, y: 0, duration: 0.9 }, 0.9)
     .add(() => {
       current = run(0)
     }, 1.0)

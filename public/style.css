@@ -232,35 +232,27 @@ h1 {
 .stage__top {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 12px 24px;
 }
 
-.stage__key {
-  font-family: var(--mono);
-  font-weight: 700;
-  font-size: clamp(2.5rem, 10.5vw, 7.25rem);
-  line-height: 1;
-  letter-spacing: -0.05em;
-}
-
+/* The time tracker is what this demo is about: the clock is the biggest thing in it */
 .clock {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
+  gap: 0.22em;
   font-family: var(--mono);
-  font-size: clamp(0.9375rem, 2.4vw, 1.25rem);
-  font-weight: 500;
+  font-size: clamp(2.5rem, 11vw, 7.25rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.05em;
   font-variant-numeric: tabular-nums;
 }
 
 .clock__dot {
-  width: 10px;
-  height: 10px;
+  width: 0.2em;
+  height: 0.2em;
   border-radius: 50%;
   background: var(--todo);
 }
@@ -270,20 +262,13 @@ h1 {
   animation: pulse 2s ease-in-out infinite;
 }
 
-.stage__side {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-}
-
-/* Shown only while the demo plays: "the time was logged" */
 .stage__toast {
   min-height: 1.5em;
   margin: 0;
   font-family: var(--mono);
-  font-size: clamp(0.6875rem, 1.8vw, 0.8125rem);
+  font-size: clamp(0.6875rem, 1.8vw, 0.875rem);
   color: var(--done);
+  /* Shown only while the demo plays: "the time was logged" */
   opacity: 0;
 }
 
@@ -293,14 +278,30 @@ h1 {
   }
   70%,
   100% {
-    box-shadow: 0 0 0 9px transparent;
+    box-shadow: 0 0 0 0.12em transparent;
   }
 }
 
+.stage__ticket {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  margin-top: clamp(16px, 2.5vw, 28px);
+}
+
+.stage__key {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: clamp(1rem, 2.6vw, 1.5rem);
+  letter-spacing: -0.03em;
+}
+
 .stage__title {
-  margin: 14px 0 0;
-  font-size: clamp(1.0625rem, 2.4vw, 1.5rem);
+  margin: 0;
+  font-size: clamp(1rem, 2.4vw, 1.5rem);
   letter-spacing: -0.01em;
+  color: var(--ink-2);
 }
 
 .rail {
@@ -381,6 +382,113 @@ h1 {
 @keyframes blink {
   to {
     visibility: hidden;
+  }
+}
+
+/* ---------- The app: its three views, with a switch like the real one ---------- */
+
+.app {
+  margin-top: clamp(32px, 4.5vw, 56px);
+}
+
+.app__switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 4px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+}
+
+.app__switch[hidden] {
+  display: none;
+}
+
+.app__switch button {
+  min-height: 44px;
+  padding: 0 clamp(16px, 3vw, 26px);
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.app__switch button:hover {
+  color: var(--ink);
+}
+
+.app__switch button[aria-selected='true'] {
+  background: var(--ink);
+  color: var(--chalk);
+}
+
+.app__caption {
+  min-height: 3em;
+  max-width: 62ch;
+  margin: 14px 0 16px;
+  color: var(--ink-2);
+}
+
+.app__window {
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px -28px color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+.app__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.app__bar img {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.app__panel img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.app__panel:not([hidden]) {
+  animation: appin 0.35s ease;
+}
+
+@keyframes appin {
+  from {
+    opacity: 0;
+  }
+}
+
+.app__note {
+  margin-top: 12px;
+}
+
+/* On a phone the whole window would be unreadably small: show the list, which is where the switch acts */
+@media (max-width: 700px) {
+  .app__panel {
+    height: 480px;
+    overflow: hidden;
+  }
+
+  .app__panel img {
+    width: calc((100vw - 2 * var(--gutter)) * 2.87);
+    max-width: none;
   }
 }
 
