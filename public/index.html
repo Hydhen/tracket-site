@@ -31,6 +31,7 @@
     <script src="vendor/ScrollTrigger.min.js" defer></script>
     <script src="motion.js" defer></script>
     <script src="flow.js" defer></script>
+    <script src="mini.js" defer></script>
   </head>
 
   <body>
@@ -135,6 +136,100 @@
               <span class="stage__opens">→ opens in VS Code</span>
             </p>
           </div>
+        </div>
+      </section>
+
+      <section class="section section--mini" id="notch">
+        <div class="wrap">
+          <p class="facts reveal">Always in sight</p>
+          <h2 class="reveal">The timer, on top of everything.</h2>
+          <p class="intro reveal">
+            While a timer runs, a notch in the middle of the title bar shows the time. Point at it to shrink the whole
+            window to that notch: a small pill that stays above your other windows until you bring Tracket back.
+          </p>
+
+          <div
+            class="mini reveal"
+            role="img"
+            aria-label="Example: a timer is running on ticket ABC-123, and a notch in Tracket's title bar shows its time. Pointing at the notch shows a button; clicking it shrinks the window to a small pill at the top of the screen, above a code editor. The pill keeps showing the time. Clicking it brings Tracket back as it was, and when the timer stops the notch goes away."
+          >
+            <div class="mini__desk" aria-hidden="true">
+              <div class="mini__editor">
+                <div class="mini__etitle"><i></i><i></i><i></i><span>export.ts</span></div>
+                <div class="mini__code">
+                  <span class="cl cl--k" style="--w: 38%"></span>
+                  <span class="cl" style="--w: 62%; --in: 1"></span>
+                  <span class="cl" style="--w: 48%; --in: 1"></span>
+                  <span class="cl cl--k" style="--w: 30%; --in: 1"></span>
+                  <span class="cl" style="--w: 56%; --in: 2"></span>
+                  <span class="cl" style="--w: 42%; --in: 2"></span>
+                  <span class="cl" style="--w: 66%; --in: 2"></span>
+                  <span class="cl cl--k" style="--w: 24%; --in: 1"></span>
+                  <span class="cl" style="--w: 52%; --in: 2"></span>
+                  <span class="cl" style="--w: 34%; --in: 1"></span>
+                  <span class="cl" style="--w: 58%"></span>
+                </div>
+              </div>
+
+              <div class="mini__app">
+                <div class="mini__bar">
+                  <img class="mini__mark" src="favicon.svg?v=2" alt="" width="16" height="16" />
+                  <span class="mini__name">Tracket</span>
+                  <div class="mini__notchbox">
+                    <div class="mini__notch is-hover">
+                      <span class="mini__dot"></span>
+                      <span class="mini__clock" data-mclock>00:47:12</span>
+                      <span class="mini__btn">
+                        <svg viewBox="0 0 16 16" focusable="false"><path d="M14 2 9.5 6.5M9.5 3v3.5H13M2 14l4.5-4.5M6.5 13V9.5H3" /></svg>
+                      </span>
+                    </div>
+                  </div>
+                  <span class="mini__ctrl"><i></i><i></i><i></i></span>
+                </div>
+                <div class="mini__body">
+                  <div class="mini__list"><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="mini__detail">
+                    <p class="mini__key">ABC-123</p>
+                    <span class="mini__line"></span><span class="mini__line mini__line--short"></span><span class="mini__line"></span>
+                  </div>
+                </div>
+                <div class="mini__pill">
+                  <span class="mini__dot"></span>
+                  <span class="mini__clock" data-mclock>00:47:12</span>
+                  <span class="mini__btn">
+                    <svg viewBox="0 0 16 16" focusable="false"><path d="M9.5 6.5 14 2M10 2h4v4M6.5 9.5 2 14M2 10v4h4" /></svg>
+                  </span>
+                </div>
+              </div>
+
+              <div class="mini__cursor">
+                <svg viewBox="0 0 16 16" width="18" height="18" focusable="false"><path d="M2 1.5 13 8l-5 1.3L5.8 14z" /></svg>
+              </div>
+            </div>
+            <p class="flow__caption mini__caption" aria-hidden="true">
+              Point at the notch to shrink the window to it, above your other windows.
+            </p>
+          </div>
+
+          <div class="shots reveal">
+            <figure class="shot shot--app">
+              <div class="shot__window">
+                <picture>
+                  <source media="(prefers-color-scheme: dark)" srcset="img/app-notch-dark.webp" />
+                  <img src="img/app-notch-light.webp" width="2200" height="1440" alt="Tracket with ticket ABC-123 open and its timer running. In the middle of the title bar, a black rounded notch shows a red light, the time 0:47:12 and a button to shrink the window." loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <figcaption>The notch, in the middle of the title bar. Its button shows when you point at it.</figcaption>
+            </figure>
+            <figure class="shot shot--pill">
+              <div class="shot__desk">
+                <img src="img/pill.webp" width="736" height="160" alt="The shrunk window: a small black pill with a red light, the time 0:47:12 and a button that brings the app back." loading="lazy" decoding="async" />
+              </div>
+              <figcaption>Shrunk, the window is only this pill, above everything else.</figcaption>
+            </figure>
+          </div>
+
+          <p class="small reveal">The pill can be dragged anywhere. It shows the time of the running timers, added up.</p>
         </div>
       </section>
 
@@ -267,6 +362,8 @@
           <p class="basics reveal">
             The basics are there too: edit a ticket's description in place, comment on it and mention people with
             <code>@</code>, change any field, custom ones included, and search every ticket with <code>Ctrl+K</code>.
+            When a move needs more fields than Jira's screen shows, what you filled in stays until the ticket has moved,
+            so you never type it twice.
           </p>
         </div>
       </section>
@@ -303,8 +400,8 @@
               <div>
                 <h3 class="row__title">Track time on several tickets at once</h3>
                 <p class="row__text">
-                  Every ticket has its own timer. They keep running while the app is closed. When you're done, post the time
-                  to Jira as a worklog.
+                  Every ticket has its own timer. They keep running while the app is closed, and a notch in the title bar
+                  shows the time that is running. When you're done, post the time to Jira as a worklog.
                 </p>
               </div>
             </li>

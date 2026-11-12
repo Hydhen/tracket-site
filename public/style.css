@@ -1333,6 +1333,343 @@ h2 {
   margin: 0 0 8px;
 }
 
+/* ---------- Always in sight: the timer notch, and the window shrunk to it. The default is a still frame; mini.js plays it. ---------- */
+
+.mini {
+  margin-top: clamp(32px, 5vw, 48px);
+}
+
+/* A desktop: an editor behind, Tracket in front. Sizes follow its width, so the scene scales as a whole. */
+.mini__desk {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--doing) 30%, var(--chalk)),
+    color-mix(in srgb, var(--live) 22%, var(--chalk))
+  );
+}
+
+.mini__editor,
+.mini__app {
+  font-size: max(9px, 1.45cqw);
+  line-height: 1.4;
+}
+
+.mini__editor {
+  position: absolute;
+  inset: 3% 2% 3% 2%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 0.8em;
+}
+
+.mini__etitle {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  height: 2.6em;
+  padding: 0 0.9em;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  color: var(--ink-2);
+}
+
+.mini__etitle i,
+.mini__ctrl i {
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  background: var(--rule);
+}
+
+.mini__etitle span {
+  margin-left: 0.6em;
+}
+
+.mini__code {
+  padding: 0.9em 1.2em;
+}
+
+.cl {
+  display: block;
+  width: var(--w);
+  height: 0.7em;
+  margin: 0.7em 0 0.7em calc(var(--in, 0) * 1.8em);
+  border-radius: 0.35em;
+  background: color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.cl--k {
+  background: color-mix(in srgb, var(--doing) 42%, transparent);
+}
+
+.mini__app {
+  position: absolute;
+  left: 17%;
+  top: 16%;
+  z-index: 2;
+  width: 70%;
+  height: 76%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 0.9em;
+  box-shadow: 0 1.6em 3.2em -1.6em color-mix(in srgb, var(--ink) 55%, transparent);
+}
+
+.mini__bar {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  height: 2.7em;
+  padding: 0 0.9em;
+  border-bottom: 1px solid var(--rule);
+}
+
+.mini__mark {
+  width: 1.3em;
+  height: 1.3em;
+}
+
+.mini__name {
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.mini__ctrl {
+  display: flex;
+  gap: 0.5em;
+  margin-left: auto;
+}
+
+/* The notch hangs in the middle of the bar; the script slides it in when the timer starts */
+.mini__notchbox {
+  position: absolute;
+  inset: 0.4em 0 auto 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.mini__notch,
+.mini__pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #050505;
+  color: #fff;
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
+.mini__notch {
+  height: 1.9em;
+  padding: 0 0.85em;
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.mini__dot {
+  flex: none;
+  width: 0.6em;
+  height: 0.6em;
+  margin-right: 0.55em;
+  border-radius: 50%;
+  background: var(--live);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.mini__clock {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* The button that shrinks (or brings back) the window: out of sight until the pill is pointed at */
+.mini__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 1.4em;
+  margin-left: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  opacity: 0;
+  transition:
+    width 0.2s ease,
+    margin-left 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.mini__btn svg {
+  flex: none;
+  width: 0.95em;
+  height: 0.95em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.is-hover > .mini__btn {
+  width: 1.4em;
+  margin-left: 0.5em;
+  opacity: 1;
+}
+
+.mini__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  min-height: 0;
+}
+
+.mini__list {
+  border-right: 1px solid var(--rule);
+}
+
+.mini__list span {
+  display: block;
+  height: 3.4em;
+  border-bottom: 1px solid var(--rule);
+  background:
+    linear-gradient(var(--rule), var(--rule)) 1em 1em / 3.2em 0.6em no-repeat,
+    linear-gradient(color-mix(in srgb, var(--ink) 14%, transparent), color-mix(in srgb, var(--ink) 14%, transparent)) 1em
+      1.9em / 62% 0.6em no-repeat;
+}
+
+.mini__list span:first-child {
+  background-color: color-mix(in srgb, var(--doing) 11%, transparent);
+}
+
+.mini__detail {
+  padding: 1em 1.2em;
+}
+
+.mini__key {
+  margin: 0 0 0.8em;
+  font-family: var(--mono);
+  font-weight: 700;
+}
+
+.mini__line {
+  display: block;
+  height: 0.6em;
+  margin-bottom: 0.7em;
+  border-radius: 0.3em;
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.mini__line--short {
+  width: 60%;
+}
+
+/* The shrunk window: shown by the script only, once the window is a pill */
+.mini__pill {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.mini__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mini__cursor svg {
+  display: block;
+  fill: var(--ink);
+  stroke: var(--paper);
+  stroke-width: 1;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.3));
+}
+
+/* The real thing, after the scene: the app with its notch, and the pill it shrinks to */
+.shots {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 32px);
+  align-items: start;
+  margin-top: clamp(24px, 4vw, 40px);
+}
+
+.shot {
+  margin: 0;
+}
+
+.shot figcaption {
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.shot__window {
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px -28px color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+.shot__window img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The pill sits on a desktop, like the scene above, as it does on a real screen */
+.shot__desk {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 12%;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--doing) 30%, var(--chalk)),
+    color-mix(in srgb, var(--live) 22%, var(--chalk))
+  );
+}
+
+.shot__desk img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 14px rgb(0 0 0 / 0.35));
+}
+
+@media (max-width: 700px) {
+  .shots {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .shot__desk {
+    aspect-ratio: 16 / 7;
+    padding: 6% 18%;
+  }
+}
+
 /* ---------- Motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
