@@ -30,6 +30,7 @@
     <script src="vendor/gsap.min.js" defer></script>
     <script src="vendor/ScrollTrigger.min.js" defer></script>
     <script src="motion.js" defer></script>
+    <script src="flow.js" defer></script>
   </head>
 
   <body>
@@ -169,6 +170,103 @@
           <p class="small reveal">
             Link each Jira project to a local repository in Settings, Quick start. Git must be installed. Logos belong to
             their owners, and Tracket isn't affiliated with them.
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--flow" id="move">
+        <div class="wrap">
+          <p class="facts reveal">Move and edit</p>
+          <h2 class="reveal">Many tickets, one gesture.</h2>
+          <p class="intro reveal">
+            Pick tickets with Ctrl+click and drag them. Drop them on a status to move them together, or on the edit zone
+            to change the same fields on all of them.
+          </p>
+
+          <div
+            class="flow reveal"
+            role="img"
+            aria-label="Example: three tickets are picked with Ctrl+click and dragged onto the In review status of the workflow graph, and all three move there, with an Undo button. Then two tickets are dropped on the edit zone, a dialog sets the same priority and due date on both, and the list shows the change."
+          >
+            <div class="flow__window" aria-hidden="true">
+              <ul class="flow__list">
+                <li class="frow is-marked" data-key="ABC-125">
+                  <span class="frow__type frow__type--bug"></span>
+                  <span class="frow__key">ABC-125</span>
+                  <span class="frow__title">The settings dialog flashes white in dark mode</span>
+                  <span class="frow__prio"></span>
+                  <span class="frow__due">Due Nov 20</span>
+                  <span class="pill pill--todo">To do</span>
+                </li>
+                <li class="frow is-marked" data-key="ABC-127">
+                  <span class="frow__type frow__type--task"></span>
+                  <span class="frow__key">ABC-127</span>
+                  <span class="frow__title">Rename “Archive” to “Close” in the ticket menu</span>
+                  <span class="frow__prio"></span>
+                  <span class="frow__due">Due Nov 20</span>
+                  <span class="pill pill--todo">To do</span>
+                </li>
+                <li class="frow is-marked" data-key="ABC-129">
+                  <span class="frow__type frow__type--story"></span>
+                  <span class="frow__key">ABC-129</span>
+                  <span class="frow__title">Show a progress bar while the report is generated</span>
+                  <span class="frow__prio"></span>
+                  <span class="frow__due">Due Nov 20</span>
+                  <span class="pill pill--todo">To do</span>
+                </li>
+                <li class="frow" data-key="ABC-130">
+                  <span class="frow__type frow__type--task"></span>
+                  <span class="frow__key">ABC-130</span>
+                  <span class="frow__title">Document the export options</span>
+                  <span class="frow__prio"></span>
+                  <span class="frow__due">Due Nov 20</span>
+                  <span class="pill pill--todo">To do</span>
+                </li>
+              </ul>
+              <div class="flow__pane">
+                <div class="flow__detail">
+                  <p class="flow__crumb">ABC-125 · Bug</p>
+                  <p class="flow__name">The settings dialog flashes white in dark mode</p>
+                  <span class="flow__line"></span><span class="flow__line flow__line--short"></span>
+                </div>
+                <div class="flow__overlay">
+                  <div class="flow__zone">Drop here to edit their fields</div>
+                  <div class="flow__graph">
+                    <svg class="flow__links" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+                      <path d="M42 50 C50 50 50 17 58 17" /><path d="M42 50 L58 50" /><path d="M42 50 C50 50 50 83 58 83" />
+                    </svg>
+                    <span class="gnode gnode--from"><i class="gdot gdot--todo"></i>To do</span>
+                    <div class="gcol">
+                      <span class="gnode" data-node="progress"><i class="gdot gdot--doing"></i>In progress</span>
+                      <span class="gnode" data-node="review"><i class="gdot gdot--doing"></i>In review</span>
+                      <span class="gnode" data-node="closed"><i class="gdot gdot--done"></i>Closed</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flow__dialog">
+                <div class="dlg__head"><strong>Edit 2 tickets</strong><span>ABC-125, ABC-127</span></div>
+                <div class="dlg__body">
+                  <div class="dlg__field"><span>Priority</span><span class="dlg__val" data-val="priority">Pick a value</span></div>
+                  <div class="dlg__field"><span>Due date</span><span class="dlg__val" data-val="due">Pick a day</span></div>
+                </div>
+                <div class="dlg__foot"><span class="dlg__btn">Cancel</span><span class="dlg__btn dlg__btn--go">Apply</span></div>
+              </div>
+
+              <div class="flow__toast"><span class="flow__toast-text">3 tickets moved to IN REVIEW</span><span class="flow__undo">Undo</span></div>
+
+              <div class="flow__cursor">
+                <svg viewBox="0 0 16 16" width="18" height="18" focusable="false"><path d="M2 1.5 13 8l-5 1.3L5.8 14z" /></svg>
+                <span class="flow__ghost">3 tickets</span>
+              </div>
+            </div>
+            <p class="flow__caption" aria-hidden="true">Ctrl+click picks tickets. Drop them on a status to move them, or on the edit zone to change their fields.</p>
+          </div>
+
+          <p class="basics reveal">
+            The basics are there too: edit a ticket's description in place, comment on it and mention people with
+            <code>@</code>, change any field, custom ones included, and search every ticket with <code>Ctrl+K</code>.
           </p>
         </div>
       </section>

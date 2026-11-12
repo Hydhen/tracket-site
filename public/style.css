@@ -684,6 +684,476 @@ h2 {
   color: var(--band-fg);
 }
 
+/* ---------- Move and edit: tickets picked, dragged and dropped. The default is a still frame; flow.js plays it. ---------- */
+
+.flow {
+  margin-top: clamp(32px, 5vw, 48px);
+}
+
+.flow__window {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px -28px color-mix(in srgb, var(--ink) 45%, transparent);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.flow__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-right: 1px solid var(--rule);
+}
+
+.frow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.frow.is-marked {
+  background: color-mix(in srgb, var(--doing) 11%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--doing) 40%, transparent);
+}
+
+.frow.is-dragging {
+  opacity: 0.45;
+}
+
+.frow.is-flash {
+  animation: rowflash 1.1s ease;
+}
+
+@keyframes rowflash {
+  from {
+    background: color-mix(in srgb, var(--done) 30%, transparent);
+  }
+}
+
+.frow__type {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--doing);
+}
+
+.frow__type--bug {
+  background: var(--live);
+}
+
+.frow__type--story {
+  background: var(--done);
+}
+
+.frow__key {
+  flex: none;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.frow__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* What the edit changes: shown once it has been applied */
+.frow__prio {
+  flex: none;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top: 0;
+  border-bottom: 9px solid var(--live);
+  opacity: 0;
+}
+
+.frow__due {
+  flex: none;
+  font-size: 0.75rem;
+  color: var(--ink-2);
+  opacity: 0;
+}
+
+.pill {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.pill--todo {
+  background: color-mix(in srgb, var(--todo) 16%, transparent);
+  color: var(--todo);
+}
+
+.pill--doing {
+  background: color-mix(in srgb, var(--doing) 14%, transparent);
+  color: var(--doing);
+}
+
+.pill--done {
+  background: color-mix(in srgb, var(--done) 16%, transparent);
+  color: var(--done);
+}
+
+@media (prefers-color-scheme: dark) {
+  .pill--todo {
+    color: #9aa4b2;
+  }
+  .pill--doing {
+    color: #8aa6ff;
+  }
+}
+
+.flow__pane {
+  position: relative;
+  min-height: 300px;
+}
+
+.flow__detail {
+  padding: 18px 20px;
+}
+
+.flow__crumb {
+  margin: 0;
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+.flow__name {
+  margin: 8px 0 18px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.flow__line {
+  display: block;
+  height: 8px;
+  margin-top: 10px;
+  border-radius: 4px;
+  background: var(--chalk);
+}
+
+.flow__line--short {
+  width: 60%;
+}
+
+/* Over the detail while tickets are dragged: the edit zone, then the workflow graph */
+.flow__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  background: var(--paper);
+}
+
+.flow__zone {
+  display: grid;
+  place-items: center;
+  min-height: 56px;
+  border: 1.5px dashed var(--ink-2);
+  border-radius: 10px;
+  color: var(--ink-2);
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.flow__zone.is-hot {
+  background: var(--chalk);
+  border-color: var(--ink);
+  border-style: solid;
+  color: var(--ink);
+}
+
+.flow__graph {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: 190px;
+}
+
+.flow__links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 1.5;
+}
+
+.flow__links path {
+  vector-effect: non-scaling-stroke;
+}
+
+.gcol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-self: stretch;
+}
+
+.gnode {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  padding: 8px 12px;
+  background: var(--paper);
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.gcol .gnode {
+  align-self: flex-end;
+  width: min(100%, 150px);
+}
+
+.gnode.is-hot {
+  border-color: var(--doing);
+  background: color-mix(in srgb, var(--doing) 12%, var(--paper));
+  transform: scale(1.04);
+}
+
+.gdot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.gdot--todo {
+  background: var(--todo);
+}
+
+.gdot--doing {
+  background: var(--doing);
+}
+
+.gdot--done {
+  background: var(--done);
+}
+
+/* The bulk edit dialog */
+.flow__dialog {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: color-mix(in srgb, var(--ink) 35%, transparent);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flow__dialog > * {
+  width: min(86%, 380px);
+  background: var(--paper);
+  border-inline: 1px solid var(--rule);
+}
+
+.dlg__head {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 10px 10px 0 0;
+}
+
+.dlg__head span {
+  font-size: 0.75rem;
+  color: var(--ink-2);
+}
+
+.dlg__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.dlg__field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.dlg__val {
+  min-width: 9em;
+  padding: 6px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  background: var(--chalk);
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+.dlg__val.is-set {
+  color: var(--ink);
+  border-color: var(--ink-2);
+}
+
+.dlg__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 0 0 10px 10px;
+}
+
+.dlg__btn {
+  padding: 6px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.dlg__btn--go {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--chalk);
+}
+
+.flow__toast {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  z-index: 4;
+  width: max-content;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 8px 8px 16px;
+  background: var(--ink);
+  color: var(--chalk);
+  border-radius: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flow__undo {
+  padding: 4px 10px;
+  border-radius: 7px;
+  font-weight: 700;
+  color: #8aa6ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .flow__undo {
+    color: var(--doing);
+  }
+}
+
+.flow__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.flow__cursor svg {
+  display: block;
+  fill: var(--ink);
+  stroke: var(--paper);
+  stroke-width: 1;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.3));
+}
+
+.flow__ghost {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  padding: 3px 9px;
+  background: var(--ink);
+  color: var(--chalk);
+  border-radius: 7px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.flow__caption {
+  min-height: 3em;
+  max-width: 62ch;
+  margin: 16px 0 0;
+  color: var(--ink-2);
+}
+
+.basics {
+  max-width: 62ch;
+  margin: 28px 0 0;
+  color: var(--ink-2);
+}
+
+.basics code {
+  padding: 1px 6px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  font-family: var(--mono);
+  font-size: 0.8em;
+}
+
+/* Narrow: the list above, the pane below */
+@media (max-width: 700px) {
+  .flow__window {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .flow__pane {
+    min-height: 280px;
+  }
+
+  .flow__list {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .frow__due {
+    display: none;
+  }
+}
+
 /* ---------- Quick start: the two apps a worktree opens in ---------- */
 
 .launchers {
