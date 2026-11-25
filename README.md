@@ -18,6 +18,9 @@ Open `public/index.html` in a browser. Pushing to `main` publishes the `public/`
 The screenshots in [`public/img/`](public/img) show the real app with made-up tickets and people (no real Jira data), one
 per view and theme. The page picks the theme from the visitor's settings.
 
+The Themes section stacks three more, `theme-win98.webp`, `theme-mission.webp` and `theme-terminal.webp`: the Open view of Tracket in
+those fun themes, with the same made-up tickets. They are not picked by the visitor's settings.
+
 The page respects the reduced-motion setting: without motion, it is a static page.
 
 ## License

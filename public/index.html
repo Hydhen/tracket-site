@@ -32,6 +32,7 @@
     <script src="motion.js" defer></script>
     <script src="flow.js" defer></script>
     <script src="mini.js" defer></script>
+    <script src="themes.js" defer></script>
   </head>
 
   <body>
@@ -365,6 +366,55 @@
             When a move needs more fields than Jira's screen shows, what you filled in stays until the ticket has moved,
             so you never type it twice.
           </p>
+        </div>
+      </section>
+
+      <section class="section section--themes" id="themes">
+        <div class="wrap">
+          <p class="facts reveal">Themes</p>
+          <h2 class="reveal">Your tickets, your look.</h2>
+          <p class="intro reveal">
+            System, light or dark, or one of the fun themes for when the day needs it: Windows 98, Mission control,
+            Terminal, and three more. Pick one in Settings, under Appearance.
+          </p>
+
+          <div class="themes reveal">
+            <div class="themes__switch" role="group" aria-label="Theme shown in front" hidden>
+              <button type="button" data-theme="win98" aria-pressed="true">Windows 98</button>
+              <button type="button" data-theme="mission" aria-pressed="false">Mission control</button>
+              <button type="button" data-theme="terminal" aria-pressed="false">Terminal</button>
+            </div>
+
+            <div class="themes__stack">
+              <figure class="themes__card" data-theme="win98" data-pos="0">
+                <img src="img/theme-win98.webp" width="2200" height="1440" alt="Tracket in its Windows 98 theme: grey bevelled windows, a navy title bar, white sunken lists, and ticket ABC-101 selected in navy with its timer running on a black display." decoding="async" loading="lazy" />
+              </figure>
+              <figure class="themes__card" data-theme="mission" data-pos="1">
+                <img src="img/theme-mission.webp" width="2200" height="1440" alt="Tracket in its Mission control theme: amber on black, a T+ countdown on the running timer, and ticket ABC-101 lit in amber." decoding="async" loading="lazy" />
+              </figure>
+              <figure class="themes__card" data-theme="terminal" data-pos="2">
+                <img src="img/theme-terminal.webp" width="2200" height="1440" alt="Tracket in its Terminal theme: green phosphor on black in monospace, status labels in square brackets, and a faint line crossing the screen." decoding="async" loading="lazy" />
+              </figure>
+            </div>
+
+            <ul class="themes__list">
+              <li class="is-front" data-theme="win98">
+                <strong>Windows 98.</strong> Grey bevelled windows, a navy title bar, and a selection straight out of 1998.
+              </li>
+              <li data-theme="mission">
+                <strong>Mission control.</strong> Amber on black, a T+ countdown on every running timer and, if you let it,
+                the odd glitch.
+              </li>
+              <li data-theme="terminal">
+                <strong>Terminal.</strong> Green phosphor in monospace, with a moving line and curved edges you can switch
+                off.
+              </li>
+            </ul>
+            <p class="themes__note small">
+              Screenshots of Tracket with made-up tickets. Neo-brutalist, Quest log and Neon cyberpunk complete the six. The
+              fun themes are for fun: they don't promise the contrast of the light and dark ones.
+            </p>
+          </div>
         </div>
       </section>
 

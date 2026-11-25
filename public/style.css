@@ -1670,6 +1670,150 @@ h2 {
   }
 }
 
+/* ---------- Themes: three screenshots, stacked ---------- */
+
+.themes {
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.themes__switch {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 4px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+}
+
+.themes__switch[hidden] {
+  display: none;
+}
+
+.themes__switch button {
+  min-height: 44px;
+  padding: 0 clamp(14px, 3vw, 24px);
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.themes__switch button:hover {
+  color: var(--ink);
+}
+
+.themes__switch button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--chalk);
+}
+
+/* The one in front is whole, the two behind show a strip of their title bar above it. Everything is measured from the
+   bottom of the stack: a card is as high as its picture, so the percentages are those of that height. */
+.themes__stack {
+  position: relative;
+  margin-top: 24px;
+  aspect-ratio: 2200 / 1680;
+}
+
+.themes__card {
+  --y: 0%;
+  --scale: 1;
+  position: absolute;
+  inset: auto 0 0;
+  margin: 0;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px -28px color-mix(in srgb, var(--ink) 45%, transparent);
+  transform: translateY(var(--y)) scale(var(--scale));
+  transform-origin: 50% 100%;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.4s ease;
+}
+
+.themes__card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.themes__card[data-pos='0'] {
+  z-index: 3;
+}
+
+.themes__card[data-pos='1'] {
+  --y: -14%;
+  --scale: 0.94;
+  z-index: 2;
+  filter: brightness(0.88);
+}
+
+.themes__card[data-pos='2'] {
+  --y: -28%;
+  --scale: 0.88;
+  z-index: 1;
+  filter: brightness(0.76);
+}
+
+/* Without the script nothing is clickable, so nothing says it is */
+.js-themes .themes__card:not([data-pos='0']) {
+  cursor: pointer;
+}
+
+.js-themes .themes__card[data-pos='1']:hover {
+  --y: -16%;
+  filter: brightness(1);
+}
+
+.js-themes .themes__card[data-pos='2']:hover {
+  --y: -30%;
+  filter: brightness(0.92);
+}
+
+.themes__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 3vw, 32px);
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+.themes__list li {
+  padding-top: 12px;
+  border-top: 2px solid var(--rule);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.themes__list li.is-front {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.themes__list strong {
+  color: var(--ink);
+}
+
+.themes__note {
+  max-width: 62ch;
+  margin-top: 20px;
+}
+
+@media (max-width: 700px) {
+  .themes__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+}
+
 /* ---------- Motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
